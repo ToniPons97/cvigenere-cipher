@@ -11,8 +11,7 @@ struct Flags {
 void process_text(char* input, char* key, char* output, struct Flags* flags, char* selected_flag);
 
 int main(int argc, char* argv[]) {
-    short input_l;
-    short key_l;
+    short input_l, key_l;
     char* input = NULL, key = NULL, output = NULL, flag = NULL;
     
     struct Flags flags = { .encrypt = "-e", .decrypt = "-d" };
