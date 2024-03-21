@@ -13,10 +13,7 @@ void process_text(char* input, char* key, char* output, struct Flags* flags, cha
 int main(int argc, char* argv[]) {
     short input_l;
     short key_l;
-    char* input = NULL;
-    char* key = NULL;
-    char* output = NULL;
-    char* flag = NULL;
+    char* input = NULL, key = NULL, output = NULL, flag = NULL;
     
     struct Flags flags = { .encrypt = "-e", .decrypt = "-d" };
 
