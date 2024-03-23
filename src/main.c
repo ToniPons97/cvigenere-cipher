@@ -3,12 +3,11 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-struct Flags {
-    char encrypt[2];
-    char decrypt[2];
-};
 
-void process_text(char* input, char* key, char* output, struct Flags* flags, char* selected_flag);
+#define E_FLAG "-e"
+#define D_FLAG "-d"
+
+void process_text(char* input, char* key, char* output, char* selected_flag);
 
 int main(int argc, char* argv[]) {
     short input_l, key_l;
@@ -17,8 +16,6 @@ int main(int argc, char* argv[]) {
     char* output = NULL;
     char* flag = NULL;
     
-    struct Flags flags = { .encrypt = "-e", .decrypt = "-d" };
-
    if (argc != 4) {
     printf("Example usage: %s -e \"this is a message\" \"thisisakey\"\n", argv[0]);
     printf("Example usage: %s -d \"moqk qk a wiqlhow\" \"thisisakey\"\n", argv[0]);
@@ -43,7 +40,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
-    if (strncmp(argv[1], flags.encrypt, 2) && strncmp(argv[1], flags.decrypt, 2)) {
+    if (strncmp(argv[1], E_FLAG, 2) && strncmp(argv[1], D_FLAG, 2)) {
         printf("[-] Invalid flags: Flag should either be -e or -d.\n");
         return 1;
     }
@@ -53,7 +50,7 @@ int main(int argc, char* argv[]) {
     strncpy(key, argv[3], key_l + 1);
 
 
-    process_text(input, key, output, &flags, flag);
+    process_text(input, key, output, flag);
 
     printf("Key: %s\nInput: %s\nOutput: %s\n", key, input, output);
     
@@ -65,7 +62,7 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-void process_text(char* input, char* key, char* output, struct Flags* flags, char* selected_flag) {
+void process_text(char* input, char* key, char* output, char* selected_flag) {
     char* key_start = key;
     char current_char;
     char key_base;
@@ -76,9 +73,9 @@ void process_text(char* input, char* key, char* output, struct Flags* flags, cha
             key_base = isupper(*key) ? 'A' : 'a';
             input_base = isupper(*input) ? 'A' : 'a';
 
-            if (strncmp(flags->encrypt, selected_flag, 2) == 0) {
+            if (strncmp(E_FLAG, selected_flag, 2) == 0) {
                 current_char = (*input - input_base + *key - key_base) % 26 + input_base;
-            } else if (strncmp(flags->decrypt, selected_flag, 2) == 0) {
+            } else if (strncmp(D_FLAG, selected_flag, 2) == 0) {
                 int difference = (*input - input_base) - (*key - key_base);
                 
                 if (difference < 0)
