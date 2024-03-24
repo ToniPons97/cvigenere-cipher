@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-
 #define E_FLAG "-e"
 #define D_FLAG "-d"
 
@@ -11,10 +10,7 @@ void process_text(char* input, char* key, char* output, char* selected_flag);
 
 int main(int argc, char* argv[]) {
     short input_l, key_l;
-    char* input = NULL; 
-    char* key = NULL;
-    char* output = NULL;
-    char* flag = NULL;
+    char *input, *key, *output, *flag;
     
    if (argc != 4) {
     printf("Example usage: %s -e \"this is a message\" \"thisisakey\"\n", argv[0]);
